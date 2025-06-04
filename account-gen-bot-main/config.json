@@ -10,12 +10,12 @@
     "premium-gen-channels": [1378871191170711613],
 
     "admin-roles": [1367663901637873846],
-    "default_cooldown": 150,
+    "default_cooldown": 75,
     "roles": [
         {
             "id": 1378849585979588648,
-            "free-cooldown": 150,
-            "premium-cooldown": 60,
+            "free-cooldown": 75,
+            "premium-cooldown": 15,
             "gen-access": ["all"],
             "remove-if-expired": false
         }
@@ -39,6 +39,6 @@
         "stock": 7229605
     },
 
-    "_comment1": "Size for uploading stock. Default: 2097152 == 2mb",
-    "maximum-file-size": 2097152
+    "_comment1": "Size for uploading stock. Default: 5242880 == 5mb",
+    "maximum-file-size": 5242880
 }
