@@ -33,7 +33,7 @@ When installing python, make sure to enabled 'ADD TO PATH' in the installer. If 
 Download all the files in the github. **DO NOT** edit any of the .py files (if you don't know what you're doing). Everything you want/need to edit is inside the config.json file.
 
 ### 3. INSTALLING THE MODULES. (!)
-Open an console in the directory where the source is at and run the command: `pip install -r requirements.txt`
+open the start.bat file and it will install all the modules and start the bot!
 
 ### 4. CONFIG (!)
 In the config you need to put your **DISCORD BOT TOKEN** not your account token, which u can get from the [Discord Developer Portal](https://discord.com/developers/docs/). You make the bot and then go to the **BOT** tab and click on reset token, it will ask for password or code if you have mfa on your discord account. After confirming, copy the token and put it in your config. To get the guild-id aka your server id you need to enable developer mode in discord and right clicking on your server icon -> copy server id. Fill out the gen-channels, premium-gen-channels, admin-roles and the roles. You can also edit the footer message and the dm message in the config.
