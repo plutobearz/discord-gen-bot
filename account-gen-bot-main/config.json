@@ -1,0 +1,44 @@
+{
+    "token": "MTM3ODg1MjU2MjM5MjA2MDAwNg.GZ2etx.DUXynVRVz4HEydM-Ji-chAbPrjGTDZr39oZ2do",
+    "guild-id": "1367663101452877828",
+
+    "stock-command-silent": false,
+    "remove-capture-from-stock": true,
+    "commands-give-cooldown": true,
+
+    "gen-channels": [1378849802221260931],
+    "premium-gen-channels": [1378871191170711613],
+
+    "admin-roles": [1367663901637873846],
+    "default_cooldown": 150,
+    "roles": [
+        {
+            "id": 1378849585979588648,
+            "free-cooldown": 150,
+            "premium-cooldown": 60,
+            "gen-access": ["all"],
+            "remove-if-expired": false
+        }
+    ],
+
+    "_comment0": "DON'T CHANGE THESE",
+    "subscription-stages": ["Free", "Premium"],
+
+    "messages": {
+        "altsent": "Thank you for using **x2mollys gen**",
+        "footer-msg": "https://discord.gg/y65eQedbgu"
+    },
+
+    "generate-settings": {
+        "gif-img-url": "https://media1.tenor.com/m/tM-b_68cljEAAAAd/playboi-carti-carti.gif"
+    },
+
+    "colors": {
+        "error": 16713025,
+        "success": 1288807,
+        "stock": 7229605
+    },
+
+    "_comment1": "Size for uploading stock. Default: 2097152 == 2mb",
+    "maximum-file-size": 2097152
+}
