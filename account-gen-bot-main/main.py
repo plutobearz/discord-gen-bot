@@ -13,10 +13,7 @@
 import discord, json
 from datetime import datetime
 from discord import app_commands
-from fortnite_code_checker import generate_and_check_codes
-import discord
-from discord.ext import commands
-import io
+
 from io import StringIO
 from typing import List
 
@@ -85,10 +82,10 @@ cooldown = app_commands.Group(name="cooldown", description="Manage cooldowns")
 @bot.event
 async def on_ready():
     global is_everything_ready
-    .add_command(subscription)
-    .add_command(cooldown)
-    .copy_global_to(guild=discord.Object(id=config["guild-id"]))
-    await .sync(guild=discord.Object(id=config["guild-id"]))
+    tree.add_command(subscription)
+    tree.add_command(cooldown)
+    tree.copy_global_to(guild=discord.Object(id=config["guild-id"]))
+    await tree.sync(guild=discord.Object(id=config["guild-id"]))
     await database.init_db()
     
     await updateServices()
@@ -137,7 +134,7 @@ async def removeExpiredRoles(interaction: discord.Interaction, user: discord.Use
                 await user.remove_roles(role, reason="Subscription has expired.")
     return
 
-@.command(name = "gen", description = "Generate an account of your choice", guild=discord.Object(id=config["guild-id"]))
+@tree.command(name = "gen", description = "Generate an account of your choice", guild=discord.Object(id=config["guild-id"]))
 @app_commands.autocomplete(service=service_autcom)
 async def gen(interaction: discord.Interaction, service: str, is_premium: bool=False):
     
@@ -253,7 +250,7 @@ async def gen(interaction: discord.Interaction, service: str, is_premium: bool=F
         await database.reset_user_cooldown(str(interaction.user.id), rndm_stage)
         return await interaction.followup.send(content=f"{interaction.user.mention}, couldn't send you a DM, open your DMs!", ephemeral=True)
 
-@.command(name = "addstock", description = "(admin only)", guild=discord.Object(id=config["guild-id"]))
+@tree.command(name = "addstock", description = "(admin only)", guild=discord.Object(id=config["guild-id"]))
 @app_commands.autocomplete(service=service_autcom)
 async def addaccounts(interaction: discord.Interaction, service: str, file: discord.Attachment, is_premium: bool = False, is_silent: bool=True):
     global serviceList
@@ -293,7 +290,7 @@ async def addaccounts(interaction: discord.Interaction, service: str, file: disc
     added_acc_embed.set_footer(text=config['messages']['footer-msg'],icon_url=get_user_pfp(interaction.user))
     return await interaction.followup.send(embed=added_acc_embed, ephemeral=is_silent)
 
-@.command(name = "bulkgen", description = "(admin only)", guild=discord.Object(id=config["guild-id"]))
+@tree.command(name = "bulkgen", description = "(admin only)", guild=discord.Object(id=config["guild-id"]))
 @app_commands.autocomplete(service=service_autcom)
 async def usercmd(interaction: discord.Interaction, service: str, amount: int, is_premium: bool, is_silent: bool=True):
     
@@ -354,30 +351,6 @@ async def usercmd(interaction: discord.Interaction, user: discord.User):
         embd.set_footer(text=config['messages']['footer-msg'],icon_url=get_user_pfp(interaction.user))
     
     return await interaction.response.send_message(embed=embd, ephemeral=True)
-
-@tree.command(name="fortnitegen", description="Generate and check Fortnite codes", guild=discord.Object(id=config["guild-id"]))
-@app_commands.describe(
-    num_codes="Number of codes to generate",
-    num_threads="Number of threads to use"
-)
-async def fortnitegen(interaction: discord.Interaction, num_codes: int = 10, num_threads: int = 5):
-    await interaction.response.send_message(f"Generating and checking {num_codes} codes with {num_threads} threads. Please wait...")
-    loop = asyncio.get_event_loop()
-    valid_codes, error_codes = await loop.run_in_executor(
-        None, generate_and_check_codes, num_codes, num_threads
-    )
-
-    if valid_codes:
-        valid_str = "\n".join(valid_codes)
-        file = discord.File(io.BytesIO(valid_str.encode()), filename="valid_codes.txt")
-        await interaction.followup.send("Valid codes found:", file=file)
-    else:
-        await interaction.followup.send("No valid codes found.")
-
-    if error_codes:
-        error_str = "\n".join(error_codes)
-        file = discord.File(io.BytesIO(error_str.encode()), filename="error_codes.txt")
-        await interaction.followup.send("Codes with errors:", file=file)
 
 @tree.command(name = "clearservice", description = "(admin only)", guild=discord.Object(id=config["guild-id"]))
 @app_commands.autocomplete(service=service_autcom)
